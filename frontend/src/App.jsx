@@ -6,13 +6,13 @@ const fallbackPortfolio = {
     name: "Alex Morgan",
     role: "Full-Stack Developer",
     summary:
-      "I build polished portfolio sites and lightweight apps with React, Node.js, Express, and MongoDB. This starter keeps the structure clean so you can customize it fast."
+      "I build polished portfolio sites and lightweight apps with React, Node.js, Express, and MongoDB. This starter keeps the structure clean so you can customize it fast.",
   },
   stats: [
     { value: "6+", label: "sample sections" },
     { value: "3", label: "stack layers" },
     { value: "100%", label: "responsive layout" },
-    { value: "1", label: "contact pipeline" }
+    { value: "1", label: "contact pipeline" },
   ],
   about: {
     intro:
@@ -20,28 +20,29 @@ const fallbackPortfolio = {
     points: [
       "React renders the portfolio and keeps the UI responsive.",
       "Express serves portfolio data and validates contact submissions.",
-      "MongoDB stores messages when a database connection is available."
-    ]
+      "MongoDB stores messages when a database connection is available.",
+    ],
   },
   skills: [
     {
       title: "Frontend",
-      description: "Clear, responsive interfaces with strong layout and spacing.",
+      description:
+        "Clear, responsive interfaces with strong layout and spacing.",
       items: ["React", "Vite", "CSS Grid", "Accessibility"],
-      accent: "#7dd3fc"
+      accent: "#7dd3fc",
     },
     {
       title: "Backend",
       description: "Small APIs with validation and practical structure.",
       items: ["Node.js", "Express", "REST APIs", "Validation"],
-      accent: "#34d399"
+      accent: "#34d399",
     },
     {
       title: "Database",
       description: "Flexible storage for demo data and contact submissions.",
       items: ["MongoDB", "Mongoose", "Schemas", "Fallback storage"],
-      accent: "#f59e0b"
-    }
+      accent: "#f59e0b",
+    },
   ],
   projects: [
     {
@@ -51,7 +52,7 @@ const fallbackPortfolio = {
         "A one-page portfolio layout with a bold hero, skills cards, project cards, and a working contact section.",
       stack: ["React", "CSS", "Express"],
       result: "Simple to customize and ready to present as a personal site.",
-      accent: "#7dd3fc"
+      accent: "#7dd3fc",
     },
     {
       title: "Contact Inbox",
@@ -60,7 +61,7 @@ const fallbackPortfolio = {
         "A POST route captures messages, validates input, and stores submissions in MongoDB when the database is online.",
       stack: ["Node.js", "MongoDB", "Mongoose"],
       result: "Keeps the contact flow small and easy to extend later.",
-      accent: "#f59e0b"
+      accent: "#f59e0b",
     },
     {
       title: "Responsive Blocks",
@@ -68,32 +69,36 @@ const fallbackPortfolio = {
       description:
         "Reusable content cards and layout blocks that collapse cleanly on smaller screens.",
       stack: ["Flexbox", "Grid", "Media queries"],
-      result: "Looks intentional on desktop and mobile without extra complexity.",
-      accent: "#34d399"
-    }
+      result:
+        "Looks intentional on desktop and mobile without extra complexity.",
+      accent: "#34d399",
+    },
   ],
   timeline: [
     {
       year: "01",
       title: "Scaffold the stack",
-      description: "Split the project into backend and frontend folders using npm workspaces."
+      description:
+        "Split the project into backend and frontend folders using npm workspaces.",
     },
     {
       year: "02",
       title: "Render the portfolio",
-      description: "React fetches API content and keeps a fallback copy for instant previews."
+      description:
+        "React fetches API content and keeps a fallback copy for instant previews.",
     },
     {
       year: "03",
       title: "Capture messages",
-      description: "The backend validates input and stores contact submissions when MongoDB is available."
-    }
+      description:
+        "The backend validates input and stores contact submissions when MongoDB is available.",
+    },
   ],
   contact: {
     email: "hello@yourname.com",
     location: "Remote / Worldwide",
-    availability: "Open for freelance, junior, and internship roles."
-  }
+    availability: "Open for freelance, junior, and internship roles.",
+  },
 };
 
 const apiBase = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
@@ -136,10 +141,15 @@ function SkillCard({ skill }) {
 
 function ProjectCard({ project }) {
   return (
-    <article className="project-card" style={{ "--card-accent": project.accent }}>
+    <article
+      className="project-card"
+      style={{ "--card-accent": project.accent }}
+    >
       <div className="project-card__topline">
         <span className="project-card__category">{project.category}</span>
-        <span className="project-card__index">{project.stack.length} tools</span>
+        <span className="project-card__index">
+          {project.stack.length} tools
+        </span>
       </div>
       <h3>{project.title}</h3>
       <p>{project.description}</p>
@@ -173,11 +183,11 @@ function App() {
   const [form, setForm] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
   const [formState, setFormState] = useState({
     type: "",
-    text: ""
+    text: "",
   });
 
   useEffect(() => {
@@ -186,7 +196,7 @@ function App() {
     async function loadPortfolio() {
       try {
         const response = await fetch(apiUrl("/api/portfolio"), {
-          signal: controller.signal
+          signal: controller.signal,
         });
 
         if (!response.ok) {
@@ -198,7 +208,9 @@ function App() {
         setDataSource("Live data from the Express API.");
       } catch (error) {
         if (error.name !== "AbortError") {
-          setDataSource("Local preview data. Start the backend for live content.");
+          setDataSource(
+            "Local preview data. Start the backend for live content.",
+          );
         }
       }
     }
@@ -212,7 +224,7 @@ function App() {
     const { name, value } = event.target;
     setForm((current) => ({
       ...current,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -220,16 +232,16 @@ function App() {
     event.preventDefault();
     setFormState({
       type: "info",
-      text: "Sending your message..."
+      text: "Sending your message...",
     });
 
     try {
       const response = await fetch(apiUrl("/api/contact"), {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(form),
       });
 
       const result = await response.json();
@@ -241,16 +253,16 @@ function App() {
       setForm({
         name: "",
         email: "",
-        message: ""
+        message: "",
       });
       setFormState({
         type: "success",
-        text: result.message || "Your message was sent."
+        text: result.message || "Your message was sent.",
       });
     } catch (error) {
       setFormState({
         type: "error",
-        text: error.message || "Could not send the message."
+        text: error.message || "Could nosend the message.",
       });
     }
   };
@@ -259,7 +271,11 @@ function App() {
     <div className="app-shell">
       <header className="topbar">
         <div className="container topbar__inner">
-          <a className="brand" href="#home" aria-label="MERN Portfolio Starter home">
+          <a
+            className="brand"
+            href="#home"
+            aria-label="MERN Portfolio Starter home"
+          >
             <span className="brand__mark" />
             Portfolio Starter
           </a>
@@ -296,7 +312,9 @@ function App() {
           <aside className="hero__panel" aria-label="Profile summary">
             <div className="info-card">
               <span className="info-card__label">Focus</span>
-              <p>Clean builds, clear storytelling, and reliable API connections.</p>
+              <p>
+                Clean builds, clear storytelling, and reliable API connections.
+              </p>
             </div>
             <div className="info-card info-card--accent">
               <span className="info-card__label">Contact</span>
@@ -383,8 +401,8 @@ function App() {
             <article className="panel">
               <h3>Contact details</h3>
               <p className="panel__intro">
-                Reach out if you want a cleaner version, extra pages, or a real database-backed
-                inbox.
+                Reach out if you want a cleaner version, extra pages, or a real
+                database-backed inbox.
               </p>
               <div className="contact-pairs">
                 <div>
@@ -442,12 +460,18 @@ function App() {
                 />
               </div>
 
-              <button className="button button--primary button--full" type="submit">
+              <button
+                className="button button--primary button--full"
+                type="submit"
+              >
                 Send Message
               </button>
 
               {formState.text ? (
-                <p className={`form-status form-status--${formState.type}`} role="status">
+                <p
+                  className={`form-status form-status--${formState.type}`}
+                  role="status"
+                >
                   {formState.text}
                 </p>
               ) : null}
