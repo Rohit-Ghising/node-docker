@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        FRONTEND_IMAGE = "rohitghising/my-frontend"
-        BACKEND_IMAGE  = "rohitghising/my-backend"
+        FRONTEND_IMAGE = "my-frontend"
+        BACKEND_IMAGE  = "my-backend"
         TAG = "${BUILD_NUMBER}"
     }
 
@@ -16,22 +16,22 @@ pipeline {
             }
         }
 
-        stage('Push Images') {
-            steps {
-                sh "docker push $FRONTEND_IMAGE:$TAG"
-                sh "docker push $BACKEND_IMAGE:$TAG"
-            }
-        }
-
-        stage('Deploy') {
+        stage('Stop Old Containers') {
             steps {
                 sh '''
                 docker stop frontend || true
                 docker rm frontend || true
-                docker run -d -p 5173:5173 --name frontend $FRONTEND_IMAGE:$TAG
 
                 docker stop backend || true
                 docker rm backend || true
+                '''
+            }
+        }
+
+        stage('Run Containers') {
+            steps {
+                sh '''
+                docker run -d -p 5173:5173 --name frontend $FRONTEND_IMAGE:$TAG
                 docker run -d -p 5000:5000 --name backend $BACKEND_IMAGE:$TAG
                 '''
             }
