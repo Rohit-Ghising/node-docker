@@ -262,7 +262,7 @@ function App() {
     } catch (error) {
       setFormState({
         type: "error",
-        text: error.message || "Could nosend the message.",
+        text: error.message || "Could end the message.",
       });
     }
   };
