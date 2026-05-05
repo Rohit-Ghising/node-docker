@@ -16,30 +16,29 @@ pipeline {
 
         stage('Stop Old Containers') {
             steps {
-                sh "docker-compose down || true"
+                sh 'docker compose down || true'
             }
         }
 
         stage('Build & Start Containers') {
             steps {
-                sh "docker-compose up -d --build"
+                sh 'docker compose up -d --build'
             }
         }
 
         stage('Check Running Containers') {
             steps {
-                sh "docker ps"
+                sh 'docker ps'
             }
         }
     }
 
     post {
         success {
-            echo "Deployment successful 🚀"
+            echo 'Deployment successful 🚀'
         }
-
         failure {
-            echo "Deployment failed ❌"
+            echo 'Deployment failed ❌'
         }
     }
 }
