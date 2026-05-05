@@ -277,7 +277,7 @@ function App() {
             aria-label="MERN Portfolio Starter home"
           >
             <span className="brand__mark" />
-            Portfolio Starter
+            Portfolio Test
           </a>
 
           <nav className="nav-links" aria-label="Primary">
