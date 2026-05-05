@@ -1,44 +1,21 @@
 pipeline {
     agent any
 
-    environment {
-        COMPOSE_PROJECT_NAME = "myapp"
-    }
-
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Rohit-Ghising/node-docker.git'
+                git 'https://github.com/Rohit-Ghising/node-docker.git'
             }
         }
 
-        stage('Stop Old Containers') {
+        stage('Deploy') {
             steps {
-                sh 'docker compose down || true'
+                sh '''
+                docker compose down || true
+                docker compose up -d --build
+                '''
             }
-        }
-
-        stage('Build & Start Containers') {
-            steps {
-                sh 'docker compose up -d --build'
-            }
-        }
-
-        stage('Check Running Containers') {
-            steps {
-                sh 'docker ps'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Deployment successful 🚀'
-        }
-        failure {
-            echo 'Deployment failed ❌'
         }
     }
 }
