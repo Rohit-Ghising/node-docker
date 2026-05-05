@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Check Running Containers') {
+        stage('Check Running Containrs') {
             steps {
                 sh 'docker ps'
             }
