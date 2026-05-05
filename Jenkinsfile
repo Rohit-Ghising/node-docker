@@ -2,39 +2,44 @@ pipeline {
     agent any
 
     environment {
-        FRONTEND_IMAGE = "my-frontend"
-        BACKEND_IMAGE  = "my-backend"
-        TAG = "${BUILD_NUMBER}"
+        COMPOSE_PROJECT_NAME = "myapp"
     }
 
     stages {
 
-        stage('Build Images') {
+        stage('Checkout Code') {
             steps {
-                sh "docker build -t $FRONTEND_IMAGE:$TAG ./frontend"
-                sh "docker build -t $BACKEND_IMAGE:$TAG ./backend"
+                git branch: 'main',
+                    url: 'https://github.com/Rohit-Ghising/node-docker.git'
             }
         }
 
         stage('Stop Old Containers') {
             steps {
-                sh '''
-                docker stop frontend || true
-                docker rm frontend || true
-
-                docker stop backend || true
-                docker rm backend || true
-                '''
+                sh "docker-compose down || true"
             }
         }
 
-        stage('Run Containers') {
+        stage('Build & Start Containers') {
             steps {
-                sh '''
-                docker run -d -p 5173:5173 --name frontend $FRONTEND_IMAGE:$TAG
-                docker run -d -p 5000:5000 --name backend $BACKEND_IMAGE:$TAG
-                '''
+                sh "docker-compose up -d --build"
             }
+        }
+
+        stage('Check Running Containers') {
+            steps {
+                sh "docker ps"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment successful 🚀"
+        }
+
+        failure {
+            echo "Deployment failed ❌"
         }
     }
 }
