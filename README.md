@@ -1,56 +1,38 @@
-# MERN Portfolio Starter
+# MERN Dockerized Portfolio with Jenkins CI/CD
 
-This project is a simple MERN-style portfolio app with separate backend and frontend folders.
+A full-stack MERN portfolio application containerized using Docker and automated with Jenkins CI/CD pipeline.
 
-## Structure
+---
 
-```text
-backend/   Express API + MongoDB contact storage
-frontend/  React + Vite portfolio site
-```
+# Tech Stack
 
-## Run It
+## Frontend
+- React
+- Vite
 
-1. Install dependencies from the project root:
+## Backend
+- Node.js
+- Express.js
+- MongoDB
+
+## DevOps & Deployment
+- Docker
+- Docker Compose
+- Nginx
+- Jenkins
+
+---
+
+# Project Structure
 
 ```bash
-npm install
-```
-
-2. Start both apps:
-
-```bash
-npm run dev
-```
-
-3. Open the frontend in your browser:
-
-```text
-http://localhost:5173
-```
-
-The backend runs on:
-
-```text
-http://localhost:5000
-```
-
-## Environment
-
-The backend looks for `backend/.env`.
-
-Example values:
-
-```env
-PORT=5000
-MONGODB_URI=mongodb://127.0.0.1:27017/mern_portfolio
-FRONTEND_URL=http://localhost:5173
-```
-
-The frontend can optionally use `frontend/.env`:
-
-```env
-VITE_API_BASE_URL=http://localhost:5000
-```
-
-If MongoDB is not connected yet, the site still works and the contact form falls back to local demo storage.
+node-docker/
+│
+├── backend/              # Express backend API
+├── frontend/             # React frontend
+├── nginx/                # Nginx configuration
+├── docker-compose.yaml
+├── Jenkinsfile
+├── .dockerignore
+├── .gitignore
+└── README.md
