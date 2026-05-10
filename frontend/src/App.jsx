@@ -91,7 +91,7 @@ const fallbackPortfolio = {
       year: "03",
       title: "Capture messages",
       description:
-        "The backend validates input and stores contact submissions when MongoDB is available.",
+        "Tt and stores contact submissions when MongoDB is available.",
     },
   ],
   contact: {
