@@ -9,6 +9,7 @@ A full-stack MERN portfolio application containerized using Docker and automated
 ## Frontend
 - React
 - Vite
+- Typescript
 
 ## Backend
 - Node.js
@@ -20,6 +21,8 @@ A full-stack MERN portfolio application containerized using Docker and automated
 - Docker Compose
 - Nginx
 - Jenkins
+- Dockerhub
+- Images
 
 ---
 
