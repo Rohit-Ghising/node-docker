@@ -15,6 +15,7 @@ A full-stack MERN portfolio application containerized using Docker and automated
 - Node.js
 - Express.js
 - MongoDB
+- rest api
 
 ## DevOps & Deployment
 - Docker
